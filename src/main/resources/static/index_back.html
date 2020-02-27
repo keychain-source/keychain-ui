@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Keychain</title>
+<script src="js/RGraph/libraries/RGraph.common.core.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.effects.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.dynamic.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.tooltips.js"></script>
+<script src="js/RGraph/libraries/RGraph.hprogress.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.key.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<style type="text/css">@import "styles/jquery.countdown.css";</style>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/w3data.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<style type="text/css">@import "styles/menu.css";</style>
+<link rel="stylesheet" type="text/css" href="css/iamportal.css">
+<link rel="stylesheet" type="text/css" href="css/slider.css">
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/rba.js"></script>
+<link rel="icon" href="images/ericsson.png">
+<link rel="stylesheet" href="styles/ericsson.css">
+
+<script> 
+var keychainwsurl="http://localhost:9090/keychain-ws/";
+var deviceId='';
+var qrCodeTimer;
+var timerCleared = false;
+var uuid=function(){
+	var u = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	var r = Math.random() * 16 | 0,
+	v = c == 'x' ? r : (r & 0x3 | 0x8);
+	return v.toString(16);
+	});
+	return u;
+}
+
+
+var getDeviceId = function(){
+	var current = window.localStorage.getItem("_DEVICEID_")
+	if (current) return current;
+	var id = uuid();
+	window.localStorage.setItem("_DEVICEID_",id);
+	return id;
+}
+
+function validateForm()
+{ 
+	var mobile = $('#userName').val();
+	var password = $('#password').val();
+	if (mobile==null||mobile=='')
+	{ 
+ 		alert("User Name cannot be empty");
+		return false; 
+	} 
+	else
+	if (password==null||password=='')
+	{ 
+ 		alert("Password cannot be empty");
+		return false; 
+	} 
+	else
+	{
+		return true;
+	}
+} 
+
+function validateLinkForm()
+{ 
+	var mobile = $('#linkUserName').val();
+	var password = $('#linkPassword').val();
+	if (mobile==null||mobile=='')
+	{ 
+ 		alert("User Name cannot be empty");
+		return false; 
+	} 
+	else
+	if (password==null||password=='')
+	{ 
+ 		alert("Password cannot be empty");
+		return false; 
+	} 
+	else
+	{
+		return true;
+	}
+} 
+
+
+function validateCredentials(){
+	
+	if(validateForm()){
+		var userName = $('#userName').val();
+		var password = $('#password').val();
+		$.getJSON('http://localhost:9090/keychain-ui/loginprofile',{userName:userName,password:password}, function(data)
+		{
+			if (data.status=='error'){
+				alert("Either Password is wrong OR User Not Present");
+			}
+			else{
+				alert("Login Successful");
+				//localStorage.setItem("userMobile", mobile);
+				document.location.href="welcome.html";
+			}
+		});
+	}
+}
+
+function loadDeviceId(){
+	deviceId = getDeviceId();
+}
+function loginUsingQR(){
+	//alert(deviceId);
+	$.getJSON('http://localhost:9090/keychain-ui/generateqr',{requester_device_id:deviceId}, function(data)
+	{
+		//alert(data.qrCodeUrl);
+		var qrCodeImageUrl = "<table style='font:bold'>";
+		qrCodeImageUrl += "<tr><td>Please Scan the QR code to login</td></tr>";
+		qrCodeImageUrl += "<tr><td><img src='"+ data.qrCodeUrl + "'/></td></tr>";
+		qrCodeImageUrl += "</table>";
+		$('#qrCodeImageDisplay').html(qrCodeImageUrl);
+		$('#loginDiv').hide();
+		startQrCodeTimer();
+	});
+}
+
+function startQrCodeTimer(){
+	//qrCodeTimer = setTimeout(checkQRRegistery, 3000);
+	qrCodeTimer = setInterval(checkQRRegistery, 3000);
+	setTimeout(clearTimer, 15000);
+}
+
+function checkQRRegistery(){
+	//alert("Checking Registery");
+	$.getJSON('http://localhost:9090/keychain-ui/checkqrregitry',{requester_device_id:deviceId}, function(data)
+	{
+		//alert(data.qr_registration_status);
+		if (data.qr_registration_status=='registered'){
+			clearTimeout(qrCodeTimer);
+			timerCleared = true;
+			if (data.user_id != ''){
+				//alert("User Profile Present !!!");
+				//localStorage.setItem("userMobile", mobile);
+				//alert(data.qr_code);
+				$.getJSON('http://localhost:9090/keychain-ui/qrscanned',{qrcode:data.qr_code}, function(data1)
+				{
+					//alert("User Scanned Successfully !!!");
+					document.location.href="welcome.html";	
+				});
+				
+			}else{
+				$('#qrCodeImageDisplay').hide();
+				$('#qrRegistered').show();
+			}
+		}
+		//alert(data.qr_registration_status);
+	});
+}
+
+function clearTimer(){
+	clearTimeout(qrCodeTimer);
+	if (!timerCleared){
+		alert("User didn't registered QR, please select again if want to login using QR");
+		$('#qrCodeImageDisplay').hide();
+		$('#loginDiv').show();
+	}
+}
+
+function linkProfile(){
+	if(validateLinkForm()){
+		var userName = $('#linkUserName').val();
+		var password = $('#linkPassword').val();
+		$.getJSON('http://localhost:9090/keychain-ui/linkprofile',{requester_device_id:deviceId,user_name:userName,password:password}, function(data)
+		{
+			if (data.status=='error'){
+				alert("Either Password is wrong OR User Not Present");
+			}
+			else{
+				alert("Login Successful");
+				//localStorage.setItem("userMobile", mobile);
+				document.location.href="welcome.html";
+			}
+		});
+	}	
+}
+
+</script>
+<body bgcolor=silver onload="loadDeviceId();">
+<div id="header_img" style="left:90%;top:2%;position:absolute;">
+<img src="http://localhost:9090/images/icloud-keychain.jpg" width="80%" height="80%"></img>
+<img src="http://localhost:9090/images/keychain_icon.jpg" width="80%" height="80%"></img>
+</div> 
+<!-- <div id="keychain_img" style="left:10%;top:10%;position:absolute;">
+	<img src="images/macos-mojave-bug.jpg" width="100%" height="100%"></img>
+</div> -->
+<div id="loginDiv" style="top: 20%; left: 50%;  font-family: verdana;position:absolute;">
+<table>
+
+<tr>
+	<td colspan="2">
+		<img src="http://localhost:9090/images/sign_in_gif.gif" width="100%" height="80%"></img>
+	</td>
+</tr>
+<tr>
+	<td>User Name</td><td><input type="text" name="userName" id="userName" maxlength="10" size="20" placeholder="User Name"></td>
+</tr>
+<tr>
+	<td>Password</td><td><input type="password" name="password" id="password" maxlength="10" size="21" placeholder="Password"></td>
+</tr>
+
+<tr>
+	<td align="center">
+		<button onclick="loginUsingQR();">Login Using QR Code</button>
+	</td>
+	<td align="center">
+		<button onclick="validateCredentials();">Login </button> &nbsp;&nbsp;
+		<a href="signup.html">Sign up</a>
+	</td>
+	
+	<!-- <td align="center">
+		<button onclick="myFunction()">My Application</button>
+	</td> -->
+</tr>
+</table>
+</div>
+
+<div id="qrRegistered" style="top: 20%; left: 50%;  font-family: verdana;position:absolute;display:none;">
+<table>
+
+<tr>
+	<td colspan="2">
+		Thank you for Registering QR, Please provide your credentials for first time register !!!
+	</td>
+</tr>
+<tr>
+	<td>User Name</td><td><input type="text" name="linkUserName" id="linkUserName" maxlength="10" size="20" placeholder="User Name"></td>
+</tr>
+<tr>
+	<td>Password</td><td><input type="password" name="linkPassword" id="linkPassword" maxlength="10" size="21" placeholder="Password"></td>
+</tr>
+
+<tr>
+	<td align="center" colspan="2">
+		<button onclick="linkProfile();">Login </button> &nbsp;&nbsp;
+	</td>
+</tr>
+</table>
+</div>
+
+<div id="qrCodeImageDisplay" style="top: 25%; left: 60%;position:absolute;">
+</div>
+</body> 
+
+</html>
+
+
+

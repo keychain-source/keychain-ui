@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>myCircle - Welcome to My Circle</title>
+<script src="js/RGraph/libraries/RGraph.common.core.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.effects.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.dynamic.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.tooltips.js"></script>
+<script src="js/RGraph/libraries/RGraph.hprogress.js"></script>
+<script src="js/RGraph/libraries/RGraph.common.key.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<style type="text/css">@import "styles/jquery.countdown.css";</style>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/w3data.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<style type="text/css">@import "styles/menu.css";</style>
+<link rel="stylesheet" type="text/css" href="css/iamportal.css">
+<link rel="stylesheet" type="text/css" href="css/slider.css">
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/rba.js"></script>
+
+<link rel="icon" href="images/ericsson.png">
+
+
+<script> 
+
+function loadProfileInformation(){
+	var userName=localStorage.getItem("userName");
+	
+	if (userName==""){
+		alert("Please Login First !!!");
+		document.location.href="index.html";
+	}
+	else{
+		var userNameText = "Hello " + userName;
+		$('#header_text').html(userNameText);
+	}
+	
+}
+
+function logout(){
+	document.location.href="index.html";
+}
+</script>
+<body bgcolor="#E5E7E9" onload="loadProfileInformation();">
+
+<div id="pageNameDiv" style="top: 0%; left: 0%;  width:100%; position:absolute;background-color: #6f94dc;">
+<table style="background-color: #335EFF;border: 0;width: 100%;height:100%">
+<tr align="center">
+	<td style="background-color: #335EFF;color: white;font-size: 30px">
+		&nbsp;
+	</td>
+</tr>
+</table>
+</div>
+<div id="header_img" style="left:10%;top:0%;position:absolute;font-family: verdana;position:absolute;color:white;font-size: 24px">
+<table>
+<tr>
+	<td>myCircle</td>
+</tr>
+</table>
+</div>
+
+<div id="logout" style="left:90%;top:0%;position:absolute;font-family: verdana;position:absolute;color:white;font-size: 25px">
+<table>
+<tr>
+	<td>
+		<a href="#" class="logout-button" onclick="logout();">Logout</a>
+	</td>
+</tr>
+</table>
+</div>
+
+<div id="header_text" style="left:70%;top:1%;position:absolute;font-family: verdana;position:absolute;color:white;font-size: 18px">
+</div>
+
+<div id="searchOption" style="left:20%;top:0.25%;position:absolute;font-family: verdana;position:absolute;color:white;font-size: 18px">
+<table>
+<tr>
+	<td><input type="text" placeholder="Search" style="width: 400px;height: 22px;"/></td>
+	<td>
+		<!-- <img src="http://localhost:9090/images/search.png" style="width: 50%;height: 25%;"/> -->
+		<a href="#" class="search-button" onclick="logout();" >Search</a>
+	</td>
+</tr>
+</table>
+</div>
+
+<div id="newsfeed" style="left:1%;top:10%;position:absolute;font-family: verdana;position:absolute;color:black;">
+<table border="0" style="border: 0;vertical-align: middle;border-color: black;font-size: 12px;background-color: white;">
+<tr style="vertical-align: middle;border-bottom-color: black;">
+	<td width="50px;" height="50px;" align="center">
+		<img src="http://localhost:9090/images/news_feed.png" style="width: 40px;height: 40px;"/>
+	</td>
+	<td width="100px;">
+		News Feed
+	</td>
+</tr>
+<tr style="vertical-align: middle;" align="center">
+	<td width="50px;" height="50px;">
+		<img src="http://localhost:9090/images/messanger.jpg" style="width: 50px;height: 40px;"/>
+	</td>
+	<td width="100px;">
+		Messenger
+	</td>
+</tr>
+<tr style="vertical-align: middle;" align="center">
+	<td width="50px;" height="50px;">
+		<img src="http://localhost:9090/images/watch.jpg" style="width: 50px;height: 40px;"/>
+	</td>
+	<td width="100px;">
+		Watch
+	</td>
+</tr>
+<tr style="vertical-align: middle;" align="center">
+	<td width="50px;" height="50px;">
+		<img src="http://localhost:9090/images/marketplace.png" style="width: 50px;height: 40px;"/>
+	</td>
+	<td width="100px;">
+		Marketplace
+	</td>
+</tr>
+</table>
+</div>
+
+<div id="newsfeed" style="left:18%;top:10%;position:absolute;font-family: verdana;position:absolute;color:black;font-size: 10px;">
+<table>
+<tr>
+	<td colspan="3">
+		<textarea placeholder="Whats on Your Mind !!!" cols="50" rows="3"></textarea>
+	</td>
+</tr>
+<tr>
+	<td align="center">
+		<img src="http://localhost:9090/images/upload_video.png" style="width: 75px;height: 60px;"/> <br/>Upload Video/Images
+	</td>
+	<td align="center">
+		<img src="http://localhost:9090/images/tag_friends.jpg" style="width: 75px;height: 60px;"/> <br/>Tag Friends
+	</td>
+	<td align="center">
+		<img src="http://localhost:9090/images/checkin.png" style="width: 75px;height: 60px;"/> <br/>Check-In
+	</td>
+</tr>
+</table>
+</div>
+
+</body> 
+
+</html>
+
+
+

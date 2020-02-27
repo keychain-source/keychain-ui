@@ -1,0 +1,187 @@
+<html>
+<body>
+<head>
+<title>Keychain - NEW USER SIGNUP</title>
+
+<script src="js/jquery-1.8.3.min.js"></script>
+<style type="text/css">@import "styles/jquery.countdown.css";</style>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/w3data.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<link rel="stylesheet" type="text/css" href="css/slider.css">
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/rba.js"></script>
+<link rel="icon" href="images/ericsson.png">
+<link rel="stylesheet" href="styles/ericsson.css">
+</head>
+<script language="javascript">
+var keychainwsurl="http://localhost:9090/keychain-ui/";
+function fd()
+{
+	if($('#fin').val()=='')
+	{
+		alert("Please enter your first name");
+		//document.fn.fin.focus();
+		return false;
+	}
+	else
+	if($('#ln').val()=='')
+	{
+		alert("Please enter your  last name");
+		//document.fn.ln.focus();
+		return false;
+	}
+	else
+	if($('#email').val()=='')
+	{
+		alert("Please enter your email");
+		//document.fn.email.focus();
+		return false;
+	}
+	else
+	if($('#mobile').val()=='')
+	{
+		alert("Please enter your Mobile Number");
+		//document.fn.mobile.focus();
+		return false;
+	}
+	else
+	if($('#pass').val()=='')
+	{
+		alert("Please enter your  password");
+		//document.fn.pass.focus();
+		return false;
+	}
+	else
+	if($('#rpass').val()=='')
+	{
+		alert("Please retype your password");
+		//document.fn.rpass.focus();
+		return false;
+	}
+	else
+	if($('#pass').val()!=$('#rpass').val())
+	{
+		alert("Entered Password does not match ");
+		//document.fn.rpass.focus();
+		return false;
+	}
+	
+	else
+	return true;
+	}
+
+function PushLoginData()
+{
+	if (fd()){
+
+		var fin = $('#fin').val();
+		var ln = $('#ln').val();
+		var email = $('#email').val();
+		var userName = $('#userName').val();
+		var pass= $('#pass').val();
+		
+		var inputBody = { userFirstName : fin ,userLastName:ln,userEmail:email,userName:userName,userPassword:pass};
+		//alert(inputBody);
+		var inputBodyJson = JSON.stringify(inputBody);
+		//alert(inputBodyJson);
+		$.ajax({
+		    url: "http://localhost:9090/keychain-ui/signupprofile",
+		    type: 'POST',
+		    dataType: 'json',
+		    contentType: "application/json; charset=utf-8",
+		    data: inputBodyJson,
+		    success: function(data) {
+		        alert("SignUp Successful !!!");
+		    }
+		});
+	}
+}
+
+function Reset()
+{
+	$('#fin').val("");
+	$('#ln').val("");
+	$('#email').val("");
+	$('#userName').val("");
+	$('#pass').val("");
+	$('#rpass').val("");
+}
+	
+	
+
+</script>
+
+
+<body bgcolor=silver>
+<div id="header_img" style="left:90%;top:2%;position:absolute;">
+<img src="http://localhost:9090/images/icloud-keychain.jpg" width="80%" height="80%"></img>
+<img src="http://localhost:9090/images/keychain_icon.jpg" width="80%" height="80%"></img>
+</div>
+<!-- <table  style="border: 0;">
+<tr>
+	<td>
+		<img src="images/icloud-keychain.jpg" width="100%" height="10%"></img>
+	</td>
+</tr>
+<tr>
+	<td>
+		<img src="images/keychain_icon.jpg" width="100%" height="10%"></img>
+	</td>
+</tr>
+</table> -->
+
+
+
+<div id="signUpDiv" style="top: 10%; left: 50%;  font-family: verdana;position:absolute;">
+<table>
+<tr>
+	<td colspan="2" align="center">
+	<img src="http://localhost:9090/images/signup.jpg" width="60%" ></img>
+	</td>
+</tr>
+<tr>
+<td><b> First Name</b></td>
+<td><input type="text" name="fin" id="fin" class="textbox" style="width: 200px;"><br></td></tr>
+<tr>
+<td><b>Last Name</b></td>
+<td><input type="text" name="ln" id="ln" class="textbox" style="width: 200px;"><br></td>
+</tr>
+<tr>
+<td><b>Email</b></td>
+<td><input type=text name="email" id="email" class="textbox" style="width: 200px;"><br></td>
+</tr>
+
+<tr>
+<td><b>User Name</b></td>
+<td><input type=text name="userName" id="userName" class="textbox" style="width: 200px;"><br></td>
+</tr>
+ 
+<tr>
+<td> <b>Password</b></td>
+<td> <input type=password name="pass" id="pass" class="textbox"  style="width: 200px;"><br> </td>
+</tr>
+ 
+<tr>
+	<td> <b>Re-Type Password</b></td>
+	<td> <input type=password name="rpass" id="rpass" class="textbox"  style="width: 200px;"><br> </td>
+</tr>
+ 
+
+<tr>
+	<td align="center"> <button onclick="PushLoginData()"> Submit </button> </td>
+	<td align="center"> <button onclick="Reset()"> Reset </button> </td>
+</tr> 
+
+</table>
+
+
+</div>
+
+<div id="signup_img" style="left:10%;top:10%;position:absolute;">
+<img src="http://localhost:9090/images/sign-up-gif-13.gif" width="50%" height="100%"></img>
+
+</div>
+</body>
+
+</html>                                                 

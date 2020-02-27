@@ -1,0 +1,35 @@
+table{      
+	font-family: verdana,arial,sans-serif;      
+	font-size:8pt;      
+	color:#333333;      
+	border-width: 1px;      
+	border-color: #666666;      
+	border-style: solid;      
+	border-collapse: collapse;     
+	font-family: Ericsson Capital TT;     
+}
+th{
+	border-width: 1px;      
+	padding: 7px;      border-style: solid;      border-color: #666666;      background-color: #dedede;      
+}      
+th.ericsson-header {
+	mso-style-parent: style0;    color: white;    
+	font-size: 12.0pt;    font-weight: 700;    mso-generic-font-family: auto;    mso-font-charset: 0;    
+	text-align: center;    background: #FF3399;    mso-pattern: black none;
+}   
+th.ericsson-grey {
+	mso-style-parent: style0;    color: grey;    font-size: 10.0pt;    font-weight: 700;        
+	text-align: center;    background: #EDEDED;    mso-pattern: black none;
+}
+th.ericsson-black {
+	mso-style-parent: style0;    color: white;    font-size: 10.0pt;    font-weight: 700;        
+	text-align: center;    background: black;    mso-pattern: black none;
+}      
+td {      
+	font-size: 8.0pt;    font-weight: 400; border-width: 1px;      padding: 4px;      border-style: solid;      border-color: #666666;      background-color: #ffffff; 
+}
+td.ericsson-header
+ {      
+	font-size: 8.0pt;    font-weight: bold; border-width: 1px;      padding: 4px;      border-style: solid;      border-color: #666666;      background-color: #ffffff; 
+}        
+td.ok {      background-color: lime;      }      td.warning {      background-color: orange;      }      td.error {      background-color: red;      }

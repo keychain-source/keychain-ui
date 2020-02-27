@@ -1,0 +1,64 @@
+#sse60
+{
+    background-color: #999;
+    padding:0px;
+    clear:both;
+    text-align:center;/*For IE5 or IE No DOCTYPE*/
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+#sses60
+{
+    margin: 0 auto;/*If you don't want the menu center aligned, remove this line and above text-align:center*/	
+	font-size:0;
+	/*background:#fff url(bg.gif) bottom left;*/
+}
+#sses60 ul, #sses60 li {
+    display:inline;
+    list-style-type: none;padding:0;margin:0;zoom:1;
+}
+/*#sses60 li {
+	background: #fff;remove this line if you want to get rid of the 1px gap between each menu item bottom line
+}*/
+#sses60 a
+{
+    text-align: center;zoom:1;
+    display: inline-block;
+	font: normal 12px Arial;
+	padding:10px 16px;/*This defines the size of each menu item*/
+	text-decoration:none;
+}
+
+
+#options
+{
+    background-color: #999;
+    padding:0px;
+    clear:both;
+    text-align:center;/*For IE5 or IE No DOCTYPE*/
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+#optionslist
+{
+    margin: 0 auto;/*If you don't want the menu center aligned, remove this line and above text-align:center*/	
+	font-size:0;
+	/*background:#fff url(bg.gif) bottom left;*/
+}
+#optionslist ul, #optionslist li {
+    display:inline;
+    list-style-type: none;padding:0;margin:0;zoom:1;
+}
+/*#sses60 li {
+	background: #fff;remove this line if you want to get rid of the 1px gap between each menu item bottom line
+}*/
+#optionslist a
+{
+    text-align: center;zoom:1;
+    display: inline-block;
+	font: normal 12px Arial;
+	padding:10px 16px;/*This defines the size of each menu item*/
+	text-decoration:none;
+}
