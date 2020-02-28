@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,7 @@ public class KeychainController {
 	// @Value("${spring.application.name}")
 	// private static final String template = "Hello, %s!";
 	// private final AtomicLong counter = new AtomicLong();
+	private static final Logger logger = LoggerFactory.getLogger(KeychainController.class);
 	
 	@Autowired
 	KeychainProperties keychainProperties;
@@ -72,7 +75,7 @@ public class KeychainController {
 		try {
 			JSONObject generateQRResp = restCall.sendPostRestCall(keychainProperties.getKeychainWsUrl() + "/keychain-ws/checkqrregistry", null, queryParams, null);
 			JSONObject resultObj = new JSONObject(generateQRResp.getString("result"));
-			System.out.println(resultObj);
+			logger.debug(resultObj.toString());
 			if (resultObj.has("user_id") && null != resultObj.get("user_id")){
 				responseDto.setUser_id(String.valueOf(resultObj.get("user_id")));;	
 			}
