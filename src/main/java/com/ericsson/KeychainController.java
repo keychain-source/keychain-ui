@@ -76,6 +76,9 @@ public class KeychainController {
 			if (resultObj.has("user_id") && null != resultObj.get("user_id")){
 				responseDto.setUser_id(String.valueOf(resultObj.get("user_id")));;	
 			}
+			else{
+				responseDto.setUser_id("no_user_found");
+			}
 			if (resultObj.has("qr_registration_status") && null != resultObj.get("qr_registration_status")){
 				responseDto.setQr_registration_status(resultObj.getString("qr_registration_status"));	
 			}

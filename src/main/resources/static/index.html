@@ -151,7 +151,13 @@ function checkQRRegistery(){
 			clearTimeout(qrCodeTimer);
 			timerCleared = true;
 			alert(data.user_id);
-			if (data.user_id != '' || data.user_id != 'null'){
+			
+			if (data.user_id == 'no_user_found'){
+				$('#qrCodeImageDisplay').hide();
+				$('#qrRegistered').show();
+				$('#signUpDiv').show();
+			}
+			else if (data.user_id != '' || data.user_id != 'null'){
 				//alert("User Profile Present !!!");
 				//localStorage.setItem("userMobile", mobile);
 				//alert(data.qr_code);
@@ -161,11 +167,6 @@ function checkQRRegistery(){
 					localStorage.setItem("userName", data.user_id);
 					document.location.href="welcome.html";
 				});
-				
-			}else{
-				$('#qrCodeImageDisplay').hide();
-				$('#qrRegistered').show();
-				$('#signUpDiv').show();
 			}
 		}
 		//alert(data.qr_registration_status);
