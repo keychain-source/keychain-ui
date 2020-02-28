@@ -150,6 +150,7 @@ function checkQRRegistery(){
 		if (data.qr_registration_status=='registered'){
 			clearTimeout(qrCodeTimer);
 			timerCleared = true;
+			alert(data.user_id);
 			if (data.user_id != ''){
 				//alert("User Profile Present !!!");
 				//localStorage.setItem("userMobile", mobile);
