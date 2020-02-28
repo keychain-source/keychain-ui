@@ -32,14 +32,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
 public class RestCall {
 
-	private final static Logger logger = Logger.getLogger(RestCall.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestCall.class);
 	
 	private Map<String, String> header = new HashMap<String, String>();
 	
@@ -58,7 +59,7 @@ public class RestCall {
 	public JSONObject sendGetRestCall(String url, Map<String, String> header, Map<String, String> queryParams)
 			throws Exception {
 		
-		System.out.println("Start REST Call");
+		logger.debug("Start REST Call");
 		URIBuilder builder = new URIBuilder(url);
 		if (null != queryParams && queryParams.size() > 0){
 			Iterator<String> queryParamsSet = queryParams.keySet().iterator();
@@ -67,10 +68,10 @@ public class RestCall {
 				builder.setParameter(key, queryParams.get(key));
 			}
 		}
-		System.out.println("Start REST Call Get Query Params Set ");
+		logger.debug("Start REST Call Get Query Params Set ");
 		URI uri = builder.build();
 		HttpGet httpget = new HttpGet(uri);
-		System.out.println("Start REST Call Get Request Ready ");
+		logger.debug("Start REST Call Get Request Ready ");
 		if (null != header && header.size() > 0){
 			Iterator<String> headerSet = header.keySet().iterator();
 			while (headerSet.hasNext()) {
@@ -123,14 +124,14 @@ public class RestCall {
 			}	
 		}
 		
-		System.out.println("\nSending 'GET' request to URL : " + uri.toString());
+		logger.debug("\nSending 'GET' request to URL : " + uri.toString());
 		
 		logger.info("\nSending 'GET' request to URL : " + uri.toString());
 		
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpResponse response = client.execute(httpget);
 
-		System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+		logger.debug("Response Code : " + response.getStatusLine().getStatusCode());
 		logger.info("Response Code : " + response.getStatusLine().getStatusCode());
 		
 
@@ -199,7 +200,7 @@ public class RestCall {
 	public JSONObject sendPostRestCall(String url, Map<String, String> header, Map<String, String> queryParams,
 			String body) throws Exception {
 
-		System.out.println("Making REST POSt Call");
+		logger.debug("Making REST POSt Call");
 		URIBuilder builder = new URIBuilder(url);
 
 		if (null != queryParams && !queryParams.isEmpty()) {
@@ -228,13 +229,13 @@ public class RestCall {
 			input.setContentType("application/json");
 			httpPost.setEntity(input);
 		}
-		System.out.println(uri.toString());
+		logger.debug(uri.toString());
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpResponse response = client.execute(httpPost);
 
 		logger.info("\nSending 'POST' request to URL : " + uri.toString());
 		logger.info("Response Code : " + response.getStatusLine().getStatusCode());
-		System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+		logger.debug("Response Code : " + response.getStatusLine().getStatusCode());
 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
@@ -289,7 +290,7 @@ public class RestCall {
 		httpPost.setEntity(input);
 		// }
 
-		System.out.println(httpPost.getURI().toString());
+		logger.debug(httpPost.getURI().toString());
 		
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpResponse response = client.execute(httpPost);
@@ -351,7 +352,7 @@ public class RestCall {
         HttpClient httpClient = HttpClients.custom().setConnectionManager(ccm).build();
         
         
-        //System.out.println("\nSending 'POST' request to URL : " + httpPost.getURI().getRawPath());
+        //logger.debug("\nSending 'POST' request to URL : " + httpPost.getURI().getRawPath());
         HttpResponse response = httpClient.execute(httpPost);
 
 		
@@ -424,8 +425,8 @@ public class RestCall {
 			JSONObject prodObj = gson.fromJson(build.toString(), JSONObject.class);
 			JSONObject labObj = gson.fromJson(build1.toString(), JSONObject.class);
 			
-			System.out.println("prodObj" + prodObj);
-			System.out.println("labObj" + labObj);
+			logger.debug("prodObj" + prodObj);
+			logger.debug("labObj" + labObj);
 			
 			prodscanner.close();
 			labscanner.close();

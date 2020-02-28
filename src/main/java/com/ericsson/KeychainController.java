@@ -45,14 +45,14 @@ public class KeychainController {
 		RestCall restCall = new RestCall();
 		Map<String,String> queryParams = new HashMap<String,String>();
 		
-		System.out.println("Inside Geenerate QR ");
+		logger.debug("Inside Geenerate QR ");
 		queryParams.put("requester_device_id", requesterDeviceId);
 		
 		try {
 			JSONObject generateQRResp = restCall.sendPostRestCall(keychainProperties.getKeychainWsUrl() + "/keychain-ws/generateqr", null, queryParams, null);
-			System.out.println(generateQRResp);
+			logger.debug(generateQRResp.toString());
 			JSONObject result = new JSONObject(generateQRResp.getString("result"));
-			System.out.println(result);
+			logger.debug(result.toString());
 			responseDto.setQrCodeUrl(result.getString("qr_code_url"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -138,7 +138,7 @@ public class KeychainController {
 		RestCall restCall = new RestCall();
 		Map<String,String> queryParams = new HashMap<String,String>();
 		
-		System.out.println("Inside Geenerate QR ");
+		logger.debug("Inside Geenerate QR ");
 		queryParams.put("requester_device_id", requeterDeviceId);
 		queryParams.put("user_name", userName);
 		LinkProfileResponseDTO response = new LinkProfileResponseDTO();
@@ -146,15 +146,15 @@ public class KeychainController {
 			LoginBusiness login = new LoginBusiness();
 			LoginResponseDTO loginRespDTO = login.login(userName, password);
 			if ("success".equals(loginRespDTO.getStatus())){
-				System.out.println("User Authenticated successfully !!! ");
+				logger.debug("User Authenticated successfully !!! ");
 				JSONObject linkProfileResp = restCall.sendPostRestCall(keychainProperties.getKeychainWsUrl() + "/keychain-ws/registerprofile", null, queryParams, null);
-				System.out.println(linkProfileResp);
+				logger.debug(linkProfileResp.toString());
 				JSONObject result = new JSONObject(linkProfileResp.getString("result"));
-				System.out.println(result);
+				logger.debug(result.toString());
 				response.setStatus(String.valueOf(linkProfileResp.get("status")));
 			}
 			else{
-				System.out.println("User Authentication failed !!! ");
+				logger.debug("User Authentication failed !!! ");
 				response.setStatus(loginRespDTO.getStatus());
 				response.setErrorCode(loginRespDTO.getErrorCode());
 				response.setErrorDescription(loginRespDTO.getErrorDescription());
@@ -170,13 +170,13 @@ public class KeychainController {
 
 	@RequestMapping("/keychain-ui/signupprofile")
 	public SignUpResponseDTO signUpProfile(@RequestBody SignUpUserProfileRequestDTO signUpDTO) {
-		System.out.println("Controller Entry for SignUp Flow");
+		logger.debug("Controller Entry for SignUp Flow");
 		SignUpResponseDTO responseDto = new SignUpResponseDTO();
 
 		signUpDTO.setUserId(KeychainUtils.generateUserId());
 		signUpDTO.setCreateTimestamp(KeychainUtils.getCurrentTimestamp());
 
-		System.out.println(signUpDTO.toString());
+		logger.debug(signUpDTO.toString());
 
 		try {
 			AzureDBConn azureDb = new AzureDBConn();
@@ -202,7 +202,7 @@ public class KeychainController {
 	@RequestMapping("/keychain-ui/loginprofile")
 	public LoginResponseDTO loginProfile(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password) {
-		System.out.println("Controller Entry for Login Flow");
+		logger.debug("Controller Entry for Login Flow");
 		LoginResponseDTO responseDto = new LoginResponseDTO();
 
 		try {
@@ -231,7 +231,7 @@ public class KeychainController {
 			responseDto.setErrorCode("unexpected_error");
 			responseDto.setErrorDescription("Internal Server Error");
 		}
-		System.out.println(responseDto.toString());
+		logger.debug(responseDto.toString());
 		return responseDto;
 
 		/*
@@ -242,7 +242,7 @@ public class KeychainController {
 	
 	@RequestMapping("/keychain-ui/qrscanned")
 	public QRScannedResponseDTO qrScanned(@RequestParam(value = "qrcode") String qrCode) {
-		System.out.println("Controller Entry for QR Scanned Flow");
+		logger.debug("Controller Entry for QR Scanned Flow");
 		QRScannedResponseDTO responseDto = new QRScannedResponseDTO();
 		RestCall restCall = new RestCall();
 		JSONObject body = new JSONObject();
@@ -255,7 +255,7 @@ public class KeychainController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(responseDto.toString());
+		logger.debug(responseDto.toString());
 		return responseDto;
 
 		/*
