@@ -75,7 +75,7 @@ public class KeychainController {
 		try {
 			JSONObject generateQRResp = restCall.sendPostRestCall(keychainProperties.getKeychainWsUrl() + "/keychain-ws/checkqrregistry", null, queryParams, null);
 			JSONObject resultObj = new JSONObject(generateQRResp.getString("result"));
-			logger.debug(resultObj.toString());
+			logger.debug("CheckRegistry Response :: " + resultObj.toString());
 			if (resultObj.has("user_id") && null != resultObj.get("user_id")){
 				responseDto.setUser_id(String.valueOf(resultObj.get("user_id")));;	
 			}
