@@ -152,7 +152,7 @@ function checkQRRegistery(){
 			timerCleared = true;
 			alert(data.user_id);
 			
-			if (data.user_id == 'no_user_found'){
+			if (data.user_id == 'no_user_found' || data.user_id == 'null'|| data.user_id == null){
 				$('#qrCodeImageDisplay').hide();
 				$('#qrRegistered').show();
 				$('#signUpDiv').show();
