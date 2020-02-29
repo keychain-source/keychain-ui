@@ -48,7 +48,20 @@ function fd()
 		//document.fn.rpass.focus();
 		return false;
 	}
-	
+	else
+		if($('#signUpUserName').val()!=$('#signUpUserName').val())
+		{
+			alert("Please provide an User Name ");
+			//document.fn.rpass.focus();
+			return false;
+		}
+		else
+			if($('#signUpPassword').val()!=$('#signUpPassword').val())
+			{
+				alert("Please provide User Password ");
+				//document.fn.rpass.focus();
+				return false;
+			}
 	else
 	return true;
 	}
@@ -60,10 +73,10 @@ function PushLoginData()
 		var fin = $('#fin').val();
 		var ln = $('#ln').val();
 		var email = $('#email').val();
-		var userName = $('#userName').val();
-		var pass= $('#pass').val();
+		var signUpUserName = $('#signUpUserName').val();
+		var signUpPassword= $('#signUpPassword').val();
 		
-		var inputBody = { userFirstName : fin ,userLastName:ln,userEmail:email,userName:userName,userPassword:pass};
+		var inputBody = { userFirstName : fin ,userLastName:ln,userEmail:email,userName:signUpUserName,userPassword:signUpPassword};
 		//alert(inputBody);
 		var inputBodyJson = JSON.stringify(inputBody);
 		//alert(inputBodyJson);
