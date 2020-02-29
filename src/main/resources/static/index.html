@@ -155,7 +155,7 @@ function checkQRRegistery(){
 			if (data.user_id == 'no_user_found' || data.user_id == 'null'|| data.user_id == null){
 				$('#qrCodeImageDisplay').hide();
 				$('#qrRegistered').show();
-				$('#signUpDiv').show();
+				$('#signUpDiv').hide();
 			}
 			else if (data.user_id != '' || data.user_id != 'null'){
 				//alert("User Profile Present !!!");
@@ -171,6 +171,11 @@ function checkQRRegistery(){
 		}
 		//alert(data.qr_registration_status);
 	});
+}
+
+function signUpOption(){
+	$('#signUpDiv').show();
+	$('#qrRegistered').hide();
 }
 
 function clearTimer(){
@@ -246,7 +251,7 @@ function linkProfile(){
 <table>
 <tr>
 	<td colspan="2">
-		Thank you for Registering QR, Please provide your credentials for first time register !!!
+		Thank you for Registering QR, Please provide Login/SignUp first time register !!!
 	</td>
 </tr>
 <tr>
@@ -257,7 +262,10 @@ function linkProfile(){
 </tr>
 <tr>
 	<td align="center" colspan="2">
-		<button onclick="linkProfile();">Login </button> &nbsp;&nbsp;
+		<a href="#" class="keychain-button" onclick="linkProfile();">Login </a>
+	</td>
+	<td align="center" colspan="2">
+		<a href="#" class="keychain-button" onclick="linkProfile();">Sign Up </a>
 	</td>
 </tr>
 </table>
