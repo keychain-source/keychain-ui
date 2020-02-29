@@ -185,6 +185,7 @@ public class KeychainController {
 			responseDto.setUserId(signUpDTO.getUserId());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
+			logger.debug("Error in Database Connection !!!" + e.getMessage());
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
