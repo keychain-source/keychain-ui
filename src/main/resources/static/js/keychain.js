@@ -42,7 +42,7 @@ function fd()
 		return false;
 	}
 	else
-	if($('#pass').val()!=$('#rpass').val())
+	if($('#signUpPassword').val()!=$('#rpass').val())
 	{
 		alert("Entered Password does not match ");
 		//document.fn.rpass.focus();
