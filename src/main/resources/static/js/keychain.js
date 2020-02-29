@@ -87,7 +87,8 @@ function PushLoginData()
 		    contentType: "application/json; charset=utf-8",
 		    data: inputBodyJson,
 		    success: function(data) {
-		        alert("SignUp Successful !!!");
+		        alert("SignUp Successful, Please Login Using Credentials !!!");
+		        ResetSignUp();
 		    }
 		});
 	}
@@ -101,4 +102,7 @@ function ResetSignUp()
 	$('#userName').val("");
 	$('#pass').val("");
 	$('#rpass').val("");
+	$('#signUpUserName').val("");
+	$('#signUpPassword').val("");
+	
 }
