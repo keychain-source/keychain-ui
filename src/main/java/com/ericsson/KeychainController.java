@@ -189,7 +189,11 @@ public class KeychainController {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			logger.debug("Error in Database Connection !!!" + e.getMessage());
 			e.printStackTrace();
+		}
+		catch(Exception e){
+			logger.debug("Error in Database Connection !!!" + e.getMessage());
 		}
 
 		return responseDto;
