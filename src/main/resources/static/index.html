@@ -150,7 +150,7 @@ function checkQRRegistery(){
 		if (data.qr_registration_status=='registered'){
 			clearTimeout(qrCodeTimer);
 			timerCleared = true;
-			alert(data.user_id);
+			//alert(data.user_id);
 			
 			if (data.user_id == 'no_user_found' || data.user_id == 'null'|| data.user_id == null){
 				$('#qrCodeImageDisplay').hide();
@@ -248,26 +248,30 @@ function linkProfile(){
 </table>
 </div>
 
-<div id="qrRegistered" style="top: 20%; left: 50%;  font-family: verdana;position:absolute;display:none;">
-<table>
-<tr>
+<div id="qrRegistered" style="top: 20%; left: 50%;  font-family: verdana;position:absolute;color:white;display:none;">
+<div style="font-family: verdana;color:black;">
+	Thank you for Registering QR, Please provide Login/SignUp first time register !!!
+</div>
+<table style="background-color: #335EFF;">
+<!-- <tr>
 	<td colspan="2">
 		Thank you for Registering QR, Please provide Login/SignUp first time register !!!
 	</td>
+</tr> -->
+<tr>
+	<td>User Name</td>
+	<td><input type="text" name="linkUserName" id="linkUserName" maxlength="10" size="20" placeholder="User Name"></td>
 </tr>
 <tr>
-	<td>User Name</td><td><input type="text" name="linkUserName" id="linkUserName" maxlength="10" size="20" placeholder="User Name"></td>
+	<td>Password</td>
+	<td><input type="password" name="linkPassword" id="linkPassword" maxlength="10" size="21" placeholder="Password"></td>
 </tr>
 <tr>
-	<td>Password</td><td><input type="password" name="linkPassword" id="linkPassword" maxlength="10" size="21" placeholder="Password"></td>
-</tr>
-<tr>
-	<td align="center">
-		<a href="#" class="keychain-button" onclick="linkProfile();">Login </a>
-	</td>
-	<td align="center">
+	<td align="center" colspan="2">
+		<a href="#" class="keychain-button" onclick="linkProfile();">Login </a> &nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="#" class="keychain-button" onclick="signUpOption();">Sign Up </a>
 	</td>
+	
 </tr>
 </table>
 </div>
