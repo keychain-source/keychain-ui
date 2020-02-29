@@ -68,7 +68,7 @@ function PushLoginData()
 		var inputBodyJson = JSON.stringify(inputBody);
 		//alert(inputBodyJson);
 		$.ajax({
-		    url: "http://localhost:9090/keychain-ui/signupprofile",
+		    url: "keychain-ui/signupprofile",
 		    type: 'POST',
 		    dataType: 'json',
 		    contentType: "application/json; charset=utf-8",
