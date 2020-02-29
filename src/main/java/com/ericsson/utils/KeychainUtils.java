@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
+import com.ericsson.dto.ErrorResponseDTO;
+
 public class KeychainUtils {
 	public static void main(String[] args) {
 		System.out.println(getCurrentTimestamp());
@@ -34,6 +36,14 @@ public class KeychainUtils {
 
 	public static String generateUserId(){
 		return "IAM-" + UUID.randomUUID().toString();
+	}
+	
+	public static ErrorResponseDTO generateErrorResponse(String errorCode, String ErrorDesc) {
+		ErrorResponseDTO errorResponeDTO;
+		errorResponeDTO = new ErrorResponseDTO();
+		errorResponeDTO.setErrorCode(errorCode);
+		errorResponeDTO.setErrorDesc(ErrorDesc);
+		return errorResponeDTO;
 	}
 	
 	public static String getCurrentTimestamp(){

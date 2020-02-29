@@ -8,12 +8,15 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ericsson.dao.AzureDBConn;
+import com.ericsson.dto.ErrorResponseDTO;
 import com.ericsson.dto.request.SignUpUserProfileRequestDTO;
 import com.ericsson.dto.response.GenerateQrResponseDTO;
 import com.ericsson.dto.response.GetQRRegistryResponseDTO;
@@ -170,9 +173,10 @@ public class KeychainController {
 	}
 
 	@RequestMapping("/keychain-ui/signupprofile")
-	public SignUpResponseDTO signUpProfile(@RequestBody SignUpUserProfileRequestDTO signUpDTO) {
+	public ResponseEntity<Object> signUpProfile(@RequestBody SignUpUserProfileRequestDTO signUpDTO) {
 		logger.debug("Controller Entry for SignUp Flow");
 		SignUpResponseDTO responseDto = new SignUpResponseDTO();
+		ErrorResponseDTO errorResponeDTO = null;
 
 		signUpDTO.setUserId(KeychainUtils.generateUserId());
 		signUpDTO.setCreateTimestamp(KeychainUtils.getCurrentTimestamp());
@@ -186,17 +190,21 @@ public class KeychainController {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			logger.debug("Error in Database Connection !!!" + e.getMessage());
-			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponeDTO);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			logger.debug("Error in Database Connection !!!" + e.getMessage());
-			e.printStackTrace();
+			errorResponeDTO = KeychainUtils.generateErrorResponse("internal_server_error", e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponeDTO);
 		}
 		catch(Exception e){
 			logger.debug("Error in Database Connection !!!" + e.getMessage());
+			errorResponeDTO = KeychainUtils.generateErrorResponse("internal_server_error", e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponeDTO);
 		}
 
-		return responseDto;
+		return ResponseEntity.status(HttpStatus.OK).body(responseDto);
 
 		/*
 		 * return new GenerateQrResponseDTO(counter.incrementAndGet(),
