@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ericsson.dto.request.SignUpUserProfileRequestDTO;
 import com.ericsson.utils.KeychainUtils;
 import com.ericsson.vo.UserProfileVO;
@@ -13,6 +16,8 @@ import com.ericsson.vo.UserProfileVO;
 public class AzureDBConn {
 	
 	private Connection connection;
+	
+	private static final Logger logger = LoggerFactory.getLogger(AzureDBConn.class);
 	
 	public AzureDBConn() throws ClassNotFoundException, SQLException {
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -68,8 +73,10 @@ public class AzureDBConn {
 				+ userObj.getUserFirstName() + "','" + userObj.getUserLastName() + "','"
 				+ KeychainUtils.getCurrentTimestamp() + "')";
 		
+		logger.debug("SignUp to database started !!!");
 		Statement stat = connection.createStatement();
 		stat.executeUpdate(insertSQL);
+		logger.debug("SignUp to database Executed !!!");
 		stat.close();
 	   /* ResultSet rs = stat.executeQuery("select USER_ID,USER_EMAIL,USER_NAME, from IAM_PROFILE where USER_ID='" + userId + "'");
 	    while(rs.next()) {

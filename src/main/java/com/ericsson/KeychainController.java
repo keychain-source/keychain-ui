@@ -56,6 +56,7 @@ public class KeychainController {
 			responseDto.setQrCodeUrl(result.getString("qr_code_url"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			logger.debug("Error in connecting to database !!!" + e.getMessage());
 			e.printStackTrace();
 		}
 		return responseDto;
