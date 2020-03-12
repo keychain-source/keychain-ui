@@ -237,13 +237,13 @@ public class KeychainController {
 			e.printStackTrace();
 			responseDto.setStatus("error");
 			responseDto.setErrorCode("unexpected_error");
-			responseDto.setErrorDescription("Internal Server Error");
+			responseDto.setErrorDescription("Internal Server Error" + e.getMessage());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			responseDto.setStatus("error");
 			responseDto.setErrorCode("unexpected_error");
-			responseDto.setErrorDescription("Internal Server Error");
+			responseDto.setErrorDescription("Internal Server Error" + e.getMessage());
 		}
 		logger.debug(responseDto.toString());
 		return responseDto;
